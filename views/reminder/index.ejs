@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="page-header">Reminders</h1>
+
+<ul class="list-group">
+  <% reminders.forEach(function (reminderItem) { %>
+    <li class="list-group-item">
+      <strong><%= reminderItem.title %>: </strong>
+      <%= reminderItem.description %>
+      || Completed:
+      <% if (reminderItem.isDone == true) { %>
+        <span class="badge badge-success">True</span>
+      <% } else if (reminderItem.isDone == false) { %>
+        <span class="badge badge-danger">False</span>
+      <% } %>
+      <a class="pull-right" href=<%= "/reminders/" + reminderItem.id %>>View</a>
+    </li>
+  <% }) %>
+</ul>
+<div>
+    <a href="/reminders/add"> add reminder</a>
+    <a href="/dashboard"> return to dashboard</a>
+</div>
+
+</div>

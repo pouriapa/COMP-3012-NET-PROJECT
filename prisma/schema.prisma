@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+
+model User {
+  id          String      @id  @default(uuid())
+  name        String      @default("") 
+  email       String      @unique
+  password    String      
+  imageUrl    String      @default("")     @map("image_url")
+  isAdmin     Boolean     @default(false)  @map("is_admin")
+  suspended   Boolean     @default(false)
+  
+  reminders Reminder[]
+
+  @@map(name: "users")
+}
+
+
+model Reminder {
+  id  String  @id @default(uuid())
+  title String
+  description String   
+  isDone Boolean @default(false) @map("is_done")
+  
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  @@map(name: "reminders")
+}
+
